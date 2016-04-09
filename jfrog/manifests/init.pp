@@ -1,6 +1,8 @@
 class jfrog {
 
 require 'users::create_jfrog'
+require 'unzip::install'
+require 'maven::install'
 
 file { '/tmp/jfrog-artifactory-oss-4.6.0.zip':
 source => "puppet:///modules/jfrog/jfrog-artifactory-oss-4.6.0.zip",
