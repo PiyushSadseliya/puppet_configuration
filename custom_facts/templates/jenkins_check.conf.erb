@@ -1,0 +1,11 @@
+Facter.add("jenkins_check") do
+setcode do
+res=Facter::Util::Resolution.exec('/usr/bin/ps aux | grep jenkins | grep 8080')
+if res
+'Jenkins is running'
+else
+'Jenkins is not running'
+end
+end
+
+end

@@ -1,0 +1,11 @@
+Facter.add("java_check") do
+setcode do
+res=Facter::Util::Resolution.exec('/usr/bin/java -version')
+if res
+'Java successfully installed'
+else
+'Java is not installed'
+end
+end
+
+end
