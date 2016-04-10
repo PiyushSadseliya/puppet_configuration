@@ -1,6 +1,6 @@
 class git::install {
 
-package[ 'git':
-ensure => 'installed':
+package{ 'git':
+ensure => 'installed',
 }
 }

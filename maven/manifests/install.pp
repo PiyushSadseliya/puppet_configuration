@@ -23,7 +23,7 @@ cwd => "/tmp",
 command => "mv -f $maven_folder /opt/",
 }
 
-file_line { 'edit_bashrc':
+file_line { 'edit_bash':
 require => Exec["set_maven"],
 path => '/root/.bashrc',
 line => 'export M2_HOME=/opt/apache-maven-3.3.9
@@ -36,23 +36,23 @@ require => Exec["set_maven"],
 command => "ln -s /opt/$maven_folder/bin/mvn /usr/bin/mvn",
 }
 
-exec { 'remove_folder':
+exec { 'remove_fold':
 path    => ["/usr/bin", "/usr/sbin", "/bin"],
 require => Exec["set_links"],
 cwd => "/tmp",
 command => "rm -rf $maven_folder",
 }
 
-exec { 'remove_archive':
+exec { 'remove_arch':
 path    => ["/usr/bin", "/usr/sbin", "/bin"],
 require => Exec["set_links"],
 cwd => "/tmp",
 command => "rm -rf $maven_archive",
 }
 
-exec { 'ownership':
+exec { 'owner':
 path    => ["/usr/bin", "/usr/sbin", "/bin"],
-require => Exec["remove_archive"],
+require => Exec["remove_arch"],
 command => "chown -R jenkins. /usr/bin/mvn /opt/$maven_folder",
 }
 

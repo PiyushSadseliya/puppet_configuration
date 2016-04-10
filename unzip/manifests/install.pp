@@ -1,6 +1,6 @@
 class unzip::install{
 
 package{ 'unzip':
-ensure => 'installed':
+ensure => 'installed',
 }
 }
