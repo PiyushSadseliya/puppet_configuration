@@ -16,29 +16,29 @@ cwd => "/tmp",
 command => "unzip jfrog-artifactory-oss-4.6.0.zip",
 }
 
-exec { 'make_dir':
+exec { 'make_dirr':
 path    => ["/usr/bin", "/usr/sbin", "/bin"],
 cwd => "/opt",
 require => Exec["extract_jfrog"],
 command => "mkdir jfrog",
 }
 
-exec { 'move_dir':
+exec { 'move_dirr':
 path    => ["/usr/bin", "/usr/sbin", "/bin"],
 cwd => "/tmp",
 command => "mv artifactory-oss-4.6.0 /opt/jfrog/",
-require => Exec["make_dir"],
+require => Exec["make_dirr"],
 }
 
 file_line{'edit_conf':
 path => '/opt/jfrog/artifactory-oss-4.6.0/bin/artifactory.default',
-require => Exec["move_dir"],
+require => Exec["move_dirr"],
 line => 'export ARTIFACTORY_HOME=/opt/jfrog/artifactory-oss-4.6.0
 export ARTIFACTORY_USER=jfrog
 export JAVA_HOME=/opt/jdk1.8.0_77'
 }
 
-exec { 'ownership':
+exec { 'ownershipp':
 path    => ["/usr/bin", "/usr/sbin", "/bin"],
 require => File_line["edit_conf"],
 command => "chown -R jfrog. /opt/jfrog",
@@ -46,7 +46,7 @@ command => "chown -R jfrog. /opt/jfrog",
 
 exec { 'run_artifactory':
 path => ["/usr/bin","/usr/sbin"],
-require => Exec["ownership"],
+require => Exec["ownershipp"],
 command => "runuser -l jfrog -c '/opt/jfrog/artifactory-oss-4.6.0/bin/artifactoryctl start'",
 }
 }
