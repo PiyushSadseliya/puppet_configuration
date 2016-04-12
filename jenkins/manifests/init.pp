@@ -1,7 +1,7 @@
 class jenkins{
 
 require 'maven::install' 
-require 'git::install'
+#require 'git::install'
 
 file { '/usr/local/jenkins/jenkins.war':
 require => Exec["make_dir"],

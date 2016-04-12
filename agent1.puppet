@@ -14,30 +14,22 @@ printf "%s\n" "${red}Deployment Completed${end}"
 /bin/echo "------------------------"
 export RUBYLIB=/root/lib/ruby 
 printf "%s\n" "${grn}--------------------------------------------------------${end}"
-printf "%s\n" "${red}Java :${end}"
 java -version
 printf "%s\n" "${grn}--------------------------------------------------------${end}"
-printf "%s\n" "${red}Git :${end}"
 git --version 
 printf "%s\n" "${grn}--------------------------------------------------------${end}"
-printf "%s\n" "${red}Maven :${end}"
 mvn -version 
 printf "%s\n" "${grn}--------------------------------------------------------${end}"
-printf "%s\n" "${red}Users :${end}"
 cat /etc/passwd | grep jira
 cat /etc/passwd | grep jenkins 
 cat /etc/passwd | grep jfrog 
 printf "%s\n" "${grn}--------------------------------------------------------${end}"
-printf "%s\n" "${red}Jfrog :${end}"
-ps aux | grep artifactory | grep logging.properties
+ps aux | rep artifactory | grep logging.properties
 printf "%s\n" "${grn}--------------------------------------------------------${end}"
-printf "%s\n" "${red}NTP :${end}"
 service ntpd status
 printf "%s\n" "${grn}--------------------------------------------------------${end}"
-printf "%s\n" "${red}Tomcat :${end}"
-ps aux | grep apache-tomcat
+ps aux | grep tomcat
 printf "%s\n" "${grn}--------------------------------------------------------${end}"
-printf "%s\n" "${red}Jenkins :${end}"
 service jenkins status
 printf "%s\n" "${grn}--------------------------------------------------------${end}"
 source ~/.bashrc
