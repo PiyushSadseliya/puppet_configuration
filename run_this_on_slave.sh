@@ -4,15 +4,7 @@ yel=$'\e[1;33m'
 blu=$'\e[1;34m'
 mag=$'\e[1;35m'
 cyn=$'\e[1;36m'
-end=$'\e[0m' 
-/bin/echo "------------------------"
-printf "%s\n" "${red}Deploying configuration${end}"
-/bin/echo "------------------------"
-puppet agent -t &&
-/bin/echo "------------------------"
-printf "%s\n" "${red}Deployment Completed${end}"
-/bin/echo "------------------------"
-export RUBYLIB=/root/lib/ruby 
+end=$'\e[0m'  
 printf "%s\n" "${grn}--------------------------------------------------------${end}"
 printf "%s\n" "${red}Java :${end}"
 java -version
@@ -32,7 +24,7 @@ printf "%s\n" "${red}Jfrog :${end}"
 ps aux | grep artifactory | grep logging.properties
 printf "%s\n" "${grn}--------------------------------------------------------${end}"
 printf "%s\n" "${red}NTP :${end}"
-service ntpd status
+ntpd --version
 printf "%s\n" "${grn}--------------------------------------------------------${end}"
 printf "%s\n" "${red}Tomcat :${end}"
 ps aux | grep apache-tomcat
@@ -40,4 +32,7 @@ printf "%s\n" "${grn}--------------------------------------------------------${e
 printf "%s\n" "${red}Jenkins :${end}"
 service jenkins status
 printf "%s\n" "${grn}--------------------------------------------------------${end}"
-source ~/.bashrc
+printf "%s\n" "${red}SSH :${end}"
+cat ~/.ssh/id_rsa.pub
+printf "%s\n" "${grn}--------------------------------------------------------${end}"
+export RUBYLIB=/root/lib/ruby

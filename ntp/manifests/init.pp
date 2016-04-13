@@ -1,26 +1,48 @@
 class ntp{
 
-package{ 'ntp':
-ensure => "installed",
+require 'dependencies::install'
+
+file { "/tmp/ntp-4.2.8p6.tar.gz" :
+ensure => "present",
+source => "puppet:///modules/ntp/ntp-4.2.8p6.tar.gz",
 }
 
-exec {'update_ntp':
-path => ["/usr/bin","/usr/sbin"],
-require => Package["ntp"],
-command => "ntpdate -u pool.ntp.org",
-notify => Service["ntpd"],
+exec { 'extract_ntp':
+path    => ["/usr/bin", "/usr/sbin", "/bin"],
+require => File["/tmp/ntp-4.2.8p6.tar.gz"],
+cwd => "/tmp",
+command => "tar -xzf ntp-4.2.8p6.tar.gz",
 }
 
-service { 'ntpd':
-ensure => running,
-require => Package["ntp"],
+exec{ 'move_ntp':
+path    => ["/usr/bin", "/usr/sbin", "/bin"],
+require => Exec["extract_ntp"],
+cwd => "/tmp",
+command => "mv ntp-4.2.8p6 /opt/",
 }
 
-exec {'startup_ntp':
-path => ["/usr/bin","/usr/sbin"],
-require => Exec["update_ntp"],
-command => "chkconfig ntpd on",
+exec { 'install_ntp1':
+path    => ["/usr/bin", "/usr/sbin", "/bin"],
+require => Exec["move_ntp"],
+cwd => "/opt/ntp-4.2.8p6",
+command => "/opt/ntp-4.2.8p6/configure",
 }
+
+exec { 'install_ntp2':
+path    => ["/usr/bin", "/usr/sbin", "/bin"],
+require => Exec["install_ntp1"],
+cwd => "/opt/ntp-4.2.8p6",
+command => "make",
+}
+
+exec { 'install_ntp3':
+path    => ["/usr/bin", "/usr/sbin", "/bin"],
+require => Exec["install_ntp2"],
+cwd => "/opt/ntp-4.2.8p6",
+command => "make install",
+}
+
+
 }
 
 

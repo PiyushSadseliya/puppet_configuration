@@ -1,6 +1,7 @@
 class tomcat::install($tomcat_folder="apache-tomcat-9.0.0.M4",
 $tomcat_archive="apache-tomcat-9.0.0.M4.tar.gz")
 {
+require 'java::install'
 
 file { "/tmp/$tomcat_archive":
 source => "puppet:///modules/tomcat/$tomcat_archive",
