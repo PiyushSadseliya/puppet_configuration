@@ -1,5 +1,6 @@
 class jenkins{
 
+require 'users::create_jenkins'
 require 'maven::install' 
 require 'git::install'
 
